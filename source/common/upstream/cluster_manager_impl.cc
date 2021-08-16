@@ -1231,6 +1231,7 @@ void ClusterManagerImpl::ThreadLocalClusterManagerImpl::onHostHealthFailure(
   {
     const auto container = getHttpConnPoolsContainer(host);
     if (container != nullptr) {
+      ENVOY_LOG(debug, "draining HTTP conn pool connections for {}", host->address());
       container->do_not_delete_ = true;
       container->pools_->drainConnections();
       container->do_not_delete_ = false;
@@ -1247,6 +1248,7 @@ void ClusterManagerImpl::ThreadLocalClusterManagerImpl::onHostHealthFailure(
     // active connections.
     const auto& container = host_tcp_conn_pool_map_.find(host);
     if (container != host_tcp_conn_pool_map_.end()) {
+      ENVOY_LOG(debug, "draining TCP conn pool connections for {}", host->address());
       // Draining pools or closing connections can cause pool deletion if it becomes
       // idle. Copy `pools_` so that we aren't iterating through a container that
       // gets mutated by callbacks deleting from it.
@@ -1281,6 +1283,7 @@ void ClusterManagerImpl::ThreadLocalClusterManagerImpl::onHostHealthFailure(
     // and halt other useful work. Consider breaking up this work. Note that this behavior is noted
     // in the configuration documentation in cluster setting
     // "close_connections_on_host_health_failure". Update the docs if this if this changes.
+      ENVOY_LOG(debug, "draining TCP connections for {}", host->address());
     while (true) {
       const auto& it = host_tcp_conn_map_.find(host);
       if (it == host_tcp_conn_map_.end()) {

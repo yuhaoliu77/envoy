@@ -622,8 +622,10 @@ ZoneAwareLoadBalancerBase::hostSourceToUse(LoadBalancerContext* context, uint64_
   if (per_priority_panic_[hosts_source.priority_]) {
     stats_.lb_healthy_panic_.inc();
     if (fail_traffic_on_panic_) {
+      ENVOY_LOG(debug, "failing load balancing due to P{} being panic mode", hosts_source.priority_);
       return absl::nullopt;
     } else {
+      ENVOY_LOG(debug, "triggering panic mode for P{}", hosts_source.priority_);
       hosts_source.source_type_ = HostsSource::SourceType::AllHosts;
       return hosts_source;
     }

@@ -193,7 +193,7 @@ public:
 /**
  * Base class for zone aware load balancers
  */
-class ZoneAwareLoadBalancerBase : public LoadBalancerBase {
+class ZoneAwareLoadBalancerBase : public LoadBalancerBase, public Logger::Loggable<Logger::Id::upstream> {
 protected:
   // Both priority_set and local_priority_set if non-null must have at least one host set.
   ZoneAwareLoadBalancerBase(
@@ -485,8 +485,7 @@ private:
  *    The benefit of the Maglev table is at the expense of resolution, memory usage is capped.
  *    Additionally, the Maglev table can be shared amongst all threads.
  */
-class LeastRequestLoadBalancer : public EdfLoadBalancerBase,
-                                 Logger::Loggable<Logger::Id::upstream> {
+class LeastRequestLoadBalancer : public EdfLoadBalancerBase {
 public:
   LeastRequestLoadBalancer(
       const PrioritySet& priority_set, const PrioritySet* local_priority_set, ClusterStats& stats,
