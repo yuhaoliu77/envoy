@@ -125,9 +125,9 @@ pyparsing==2.4.7 \
     # via
     #   -r tools/docs/requirements.txt
     #   packaging
-pytz==2021.1 \
-    --hash=sha256:83a4a90894bf38e243cf052c8b58f381bfe9a7a483f6a9cab140bc7f702ac4da \
-    --hash=sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798
+pytz==2022.2 \
+    --hash=sha256:bc824559e43e8ab983426a49525079d186b25372ff63aa3430ccd527d95edc3a \
+    --hash=sha256:d9b245e63af49c4e51afdec5402f56b99c0cb483a84a12bb8b7db980386baade
     # via
     #   -r tools/docs/requirements.txt
     #   babel
